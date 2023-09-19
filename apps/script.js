@@ -8,8 +8,9 @@ button.addEventListener("click", () => {
   todos.push(input.value);
   saveToLocalStorage();
   updatetodoListUI();
-  console.log("yes")
+  
   addtodo(input.value);
+  clear();
   
 });
 
@@ -36,9 +37,11 @@ function addtodo(todo) {
   });
   return div;
 }
-function clear() {
-    document.querySelector("#add-movie-form").reset();
-  }
+function clear(){
+      let inputElement = document.getElementById("input");
+      inputElement.value = "";
+}
+
 
 function saveToLocalStorage() {
   const str = JSON.stringify(todos);
@@ -54,14 +57,14 @@ function getFromLocalStorage() {
   }
   
 }
-function clearApp() {
+function clearrep() {
     const app = document.querySelector("#todoList");
     app.innerHTML = "";
 }
 
 
 function updatetodoListUI() {
-    clearApp();
+    clearrep();
   for (let i = 0; i < todos.length; i++) {
     const todo = addtodo(todos[i]);
     todoList.appendChild(todo);

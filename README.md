@@ -3,3 +3,5 @@
 ## created the list that appended.
 
 ## created the strike to strike the element selected
+
+## Added clearing function to the input box
