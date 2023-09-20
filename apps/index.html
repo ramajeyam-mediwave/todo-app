@@ -2,20 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo app</title>
     <link rel="stylesheet" href="style.css">
-    <title>ToDo List</title>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="wrapper">
-        <h2>Todo List</h2>
-        <input type="text" id="input">
-        <button id="add">Add</button>
-        <div id="todoList">
-            
-        </div>
+    <div class="wrapper">
+    <h1>Todo App</h1>
+    <form id="form">
+    <input type="text" name="task" id="input" placeholder="enter task">
+    <input type="submit" name="create-todo" value="create-todo" id="create-todo" >
+    </form>
+    <div class="total-div">
+        <h2>Todo</h2>
+        <ul class="uncompleted-task">
+        </ul>
     </div>
-    <script src="script.js"></script>
+    </div>
+    
 </body>
 </html>

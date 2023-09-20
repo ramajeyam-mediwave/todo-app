@@ -1,33 +1,12 @@
-html,
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
-   margin: 0;
-   font-family: 'Poppins', sans-serif;
-   background-color:#5B0888;
+    background-color: #5B0888;
+    font-family: 'Courier New', Courier, monospace;
 }
-
-#wrapper h2{
-    display:flex;
-    justify-content: center;
-    
-}
-
-h2{
-    color:white;
-    letter-spacing: 1px;
-}
-#input{
-    border-radius: 5px;
-    border: 2px solid black ;
-    margin-top:30px;
-    height:2.5em;
-    width:250px;
-    padding-left:10px;
-}
-
-input:active{
-    border:none;
-}
-#wrapper{
+.wrapper{
     height:500px;
     width:400px;
     margin:200px auto;
@@ -35,32 +14,26 @@ input:active{
     border-radius:10px;
     padding:30px;
 }
-
-button{
-    margin-top:20px;
-    background-color:#5B0888;
-    border-radius: 4px;
-    height: 34px;
-    font-weight: 600;
-    padding: 0 30px;
-    letter-spacing: 1px;
-    border: none;
-    color: white;
+h1{
+    padding: 10px;
+    text-align: center;
 }
 
-button:hover{
-    cursor:pointer;
-}
-#todoList{
-    color:white;
-    font-size:28px;  
-    margin-top:10px; 
+.total-div {
+    padding: 20px;
 }
 
-#todoList p{
-  margin:10px 0px;
+
+li{
+    list-style-type: none;
 }
 
-#todoList p:hover{
-  cursor: pointer;
-}
+
+
+
+
+
+
+
+
+

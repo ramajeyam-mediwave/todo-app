@@ -1,76 +1,114 @@
-let button = document.querySelector("#add");
-let todoList = document.querySelector("#todoList");
-let input = document.querySelector("#input");
-
-let todos = [];
-
-button.addEventListener("click", () => {
-  todos.push(input.value);
-  saveToLocalStorage();
-  updatetodoListUI();
-  
-  addtodo(input.value);
-  clear();
-  
-});
-
-// function clear() {
-//     document.querySelector("#input").reset();
-//   }
-
-function addtodo(todo) {
-  let div = document.createElement("div");
-
-  let checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  let para = document.createElement("label");
-  para.innerText = todo;
-  div.appendChild(checkbox);
-  div.appendChild(para);
-
-  checkbox.addEventListener('change', function() {
-    if (checkbox.checked) {
-      para.style.textDecoration = "line-through";
-    } else {
-      para.style.textDecoration = ""
-    }
-  });
-  return div;
+allTasks = [];
+function updateUiList() {
+    clear();
+  for (let i = 0; i < allTasks.length; i++) {
+    const event = MakeLiList(allTasks[i]);
+    const un_complete = document.querySelector(".uncompleted-task");
+    un_complete.appendChild(event);
+  }
 }
 function clear(){
-      let inputElement = document.getElementById("input");
-      inputElement.value = "";
+    const un_complete = document.querySelector(".uncompleted-task");
+    un_complete.innerHTML=""
 }
+function MakeLiList(task) {
+    if(task.ischecked){
+      const list = document.createElement("li");
+      list.setAttribute("id", `task-${task["id"]}`);
+      const inputCheckBox = document.createElement("input");
+      inputCheckBox.setAttribute("type", "checkbox");
+      inputCheckBox.checked=true;
+      
+      
+      const p = document.createElement("p");
+      p.setAttribute("class", "para");
 
-
-function saveToLocalStorage() {
-  const str = JSON.stringify(todos);
-  localStorage.setItem("todos-list", str);
-}
-
-function getFromLocalStorage() {
-  const str = localStorage.getItem("todos-list");
-  if (!str) {
-    todos = [];
-  } else {
-    todos = JSON.parse(str);
-  }
+      p.innerHTML = task["work"];
+      p.style.textDecoration = "line-through";
+      list.appendChild(inputCheckBox);
+      list.appendChild(p);
+      inputCheckBox.addEventListener('change', function() {
+          if (inputCheckBox.checked) {
+            checking(task["id"],true)
+          }
+          else{
+              checking(task["id"],false)
+          }
+        });
+      return list;
+    }else{
+  const list = document.createElement("li");
+  list.setAttribute("id", `task-${task["id"]}`);
+  const inputCheckBox = document.createElement("input");
+  inputCheckBox.setAttribute("type", "checkbox");
   
-}
-function clearrep() {
-    const app = document.querySelector("#todoList");
-    app.innerHTML = "";
+  const p = document.createElement("p");
+  p.setAttribute("class", "para");
+  
+  p.innerHTML = task["work"];
+  p.style.textDecoration = ""
+  list.appendChild(inputCheckBox);
+  list.appendChild(p);
+  inputCheckBox.addEventListener('change', function() {
+  if (inputCheckBox.checked) {
+    checking(task["id"],true)
+  }
+});
+return list;
+    }
 }
 
-
-function updatetodoListUI() {
-    clearrep();
-  for (let i = 0; i < todos.length; i++) {
-    const todo = addtodo(todos[i]);
-    todoList.appendChild(todo);
-   
+function saveToLocalStorage(){
+  const str = JSON.stringify(allTasks);
+  localStorage.setItem("my-event-list", str);
+}
+function getFromLocalStorage() {
+  const str = localStorage.getItem("my-event-list");
+  if (!str) {
+    return allTasks;
+  } else {
+      allTasks = JSON.parse(str);
   }
 }
-getFromLocalStorage();
-updatetodoListUI();
 
+
+function checking(taskId,bool){
+      const checkIndex=allTasks.findIndex((task)=>task.id==taskId)
+      if(checkIndex!=-1){
+          allTasks[checkIndex]['ischecked']=bool;
+          sortArray();
+          saveToLocalStorage()
+          updateUiList();
+      }
+}
+function sortArray(){
+  allTasks.sort((a, b) => (a.ischecked === b.ischecked ? 0 : a.ischecked ? 1 : -1));
+}
+function Form(){
+     const form =document.querySelector("form")
+     form.addEventListener("submit",function(e){
+        e.preventDefault();
+     let input=document.querySelector("#input").value;
+     let button=document.querySelector("#create-todo")
+     const task = {
+        id: new Date().getTime(),
+        work: input,
+        ischecked: false
+     }
+     addtask(task);
+     updateUiList();
+     })
+}
+
+
+
+function addtask(task){
+    allTasks.push(task);
+    sortArray();
+    saveToLocalStorage();
+}
+
+
+getFromLocalStorage();
+updateUiList();
+Form();
